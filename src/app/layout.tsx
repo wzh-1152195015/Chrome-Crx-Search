@@ -20,3 +20,19 @@ export default function RootLayout({
     </html>
   );
 }
+
+// SearchBox.js
+import React, { useState } from 'react';
+
+const SearchBox = () => {
+  const [query, setQuery] = useState('');
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // 构建要搜索的查询字符串
+    const searchQuery = encodeURIComponent(query);
+    // 重定向到指定的 URL，并附加搜索查询
+    window.location.href = `https://chromewebstore.google.com/search/?q=${searchQuery}`;
+  }; return (<form onSubmit={handleSubmit} className="flex">      <input type="text" value={query} onChange={(e) => setQuery(e.target.value)} className="flex-1 mr-2 border p-2 rounded focus:outline-none focus:border-blue-300" placeholder="搜索豆瓣..." />      <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">        搜索      </button>    </form>);
+}; 
+// export  SearchBox; ```5. **在主组件中使用搜索框**：在你的主组件（通常是 `App.js`）中导入并使用 `SearchBox` 组件。```tsx// App.jsimport React from 'react';import SearchBox from './SearchBox';const App = () => {  return (    <div className="App">      <h1 className="text-xl font-bold mb-4">豆瓣搜索</h1>      <SearchBox />    </div>  );};export default App;```6. **添加 Tailwind CSS 样式**：根据需要添加或修改 Tailwind CSS 样式以满足你的设计要求。7. **运行你的 React 应用**：使用 `npm start` 或 `yarn start` 命令来启动你的应用，并在浏览器中查看搜索框。这个搜索框会在用户提交表单时，将输入的搜索词编码并附加到指定的 URL 上，然后通过 `window.location.href` 重定向到该 URL。这样，无论用户输入什么，都会在 Chrome Web Store 中进行“豆瓣”相关的搜索。
